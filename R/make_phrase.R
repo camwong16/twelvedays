@@ -13,17 +13,32 @@
 #' @import glue
 #' @import dplyr
 #' @import purrr
+#' @import english
 #'
 #' @export
 
 
 
-make_phrase <- function(num, num_word, item, verb, adjective, location){
+make_phrase <- function(num, item, verb, adjective, location){
 
   verb <- str_replace_na(verb, "")
+  adjective <- str_replace_na(adjective, "")
+  location <- str_replace_na(location, "")
+  num <- english::english(num)
 
-  #????
-
-
+  glue_collapse(glue("{num} {adjective} {item} {verb} {location}."))
 }
+
+make_phrase(num = 10,
+            item = "lords",
+            verb = "a-leaping",
+            adjective = "",
+            location = "")
+
+
+
+xmasphrase <- xmas %>%
+  mutate(
+    Full.Phrase = pmap(list(Day,Gift.Item,Verb,Adjective,Location),make_phrase)
+  )
 
