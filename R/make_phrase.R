@@ -1,7 +1,6 @@
 #' Puts the various parts of speech together into a full phrase.
 #'
 #' @param num An integer
-#' @param num_word A string corresponding to the integer
 #' @param item A string
 #' @param verb A string
 #' @param adjective A string
@@ -29,16 +28,5 @@ make_phrase <- function(num, item, verb, adjective, location){
   glue_collapse(glue("{num} {adjective} {item} {verb} {location}."))
 }
 
-make_phrase(num = 10,
-            item = "lords",
-            verb = "a-leaping",
-            adjective = "",
-            location = "")
 
-
-
-xmasphrase <- xmas %>%
-  mutate(
-    Full.Phrase = pmap(list(Day,Gift.Item,Verb,Adjective,Location),make_phrase)
-  )
 
