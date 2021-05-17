@@ -24,8 +24,15 @@ make_phrase <- function(num, item, verb, adjective, location){
   adjective <- str_replace_na(adjective, "")
   location <- str_replace_na(location, "")
   num <- english::english(num)
+  
+  if (num != 1){
+     glue_collapse(glue("{num} {adjective} {item} {verb} {location}."))
+  }
 
-  glue_collapse(glue("{num} {adjective} {item} {verb} {location}."))
+ else{
+   glue_collapse(glue("a {adjective} {item} {verb} {location}."))
+ }
+   
 }
 
 
