@@ -24,17 +24,31 @@ sing_day <- function(dataset, numwords_col, line, phrase_col){
     numwords <- numwords[line]
   firstline <- glue("On the {numwords} day of Christmas, my true love gave to me")
   
-    phrases <- dataset %>% 
+      phrases <- dataset %>% 
       pull({{phrase_col}})
+      
+  if(line == 1){
+  
+    lyrics <- glue("{phrases[1]}") %>% 
+      str_remove("\\.")
     
+    fullyrics <- append(lyrics, firstline, 0)
+    
+    glue_collapse(fullyrics, sep = ", ")
+}
+
+  else{
+    
+      
   lyrics <- map_chr(line:1, ~glue("{phrases[.x]}")) %>%
     str_remove("\\.")
     
   
-  
   fullyrics <- append(lyrics, firstline , 0)
+  
+
 
   glue_collapse(fullyrics, sep = ", ", last=", and ")
  
-  
+  } 
 }
